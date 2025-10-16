@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Photo Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .gallery img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .gallery img {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📷 My Photo Gallery</h2>
+
+  <div class="gallery">
+    <img src="https://via.placeholder.com/600x400?text=Photo+1" alt="Photo 1">
+    <img src="https://via.placeholder.com/600x400?text=Photo+2" alt="Photo 2">
+    <img src="https://via.placeholder.com/600x400?text=Photo+3" alt="Photo 3">
+    <img src="https://via.placeholder.com/600x400?text=Photo+4" alt="Photo 4">
+    <img src="https://via.placeholder.com/600x400?text=Photo+5" alt="Photo 5">
+    <img src="https://via.placeholder.com/600x400?text=Photo+6" alt="Photo 6">
+  </div>
+
+</body>
+</html>

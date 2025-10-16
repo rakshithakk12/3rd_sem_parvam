@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mentally Special Objects</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #content {
+      margin-top: 20px;
+    }
+    img {
+      max-width: 400px;
+      height: auto;
+      display: block;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mentally Special Objects</h1>
+
+  <label for="location">Choose a location:</label>
+  <select id="location" onchange="showDetails()">
+    <option value="">--Select--</option>
+    <option value="uttarahalli">uttarahalli</option>
+    <option value="banashankari">Banashankari</option>
+  </select>
+
+  <div id="content"></div>
+
+  <script>
+    function showDetails() {
+      const location = document.getElementById("location").value;
+      const content = document.getElementById("content");
+
+      let html = "";
+
+      if (location === "uttarahalli") {
+        html = `
+          <img src="punith.jpeg" alt="penga punith">
+          <p>uttrahalli-the captial of creepy folks apparantely.</p>
+          <ol>
+            <li>gay</li>
+            <li>emotinally avialable for mommies</li>
+            <li>helium lover cuz alwyas crying</li>
+          </ol>
+        `;
+      } else if (location === "banashankari") {
+        html = `
+          <img src="https://via.placeholder.com/400x250?text=Banashankari" alt="Banashankari">
+          <p>Banashankari blends tradition with modernity, offering vibrant street life and temples.</p>
+          <ol>
+            <li>Historic temples and shrines</li>
+            <li>Busy shopping streets</li>
+            <li>Excellent educational institutions</li>
+          </ol>
+        `;
+      } else {
+        html = "";
+      }
+
+      content.innerHTML = html;
+    }
+  </script>
+</body>
+</html>

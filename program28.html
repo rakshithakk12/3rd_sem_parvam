@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fahrenheit to Celsius Converter</title>
+
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    background: rgba(255,255,255,0.9);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 320px;
+  }
+
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  input {
+    padding: 10px;
+    width: 80%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+  }
+
+  .result {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    color:blueviolet;
+  }
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>🌡️ Fahrenheit ➜ Celsius</h2>
+    <input type="number" id="fahrenheit" placeholder="Enter °F">
+    <br>
+    <button onclick="convert()">Convert</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function convert() {
+      let f = document.getElementById("fahrenheit").value;
+      if (f === "") {
+        document.getElementById("result").innerText = "Please enter a value!";
+        return;
+      }
+      let c = (f - 32) * 5 / 9;
+      document.getElementById("result").innerText = `${f}°F = ${c.toFixed(2)}°C`;
+    }
+  </script>
+</body>
+</html>

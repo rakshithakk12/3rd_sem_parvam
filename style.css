@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Like demo — with background design</title>
+
+  <style>
+    /* Reset & base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; font-family: "Segoe UI", Roboto, Arial, sans-serif; }
+
+    /* Animated gradient background */
+    .bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      background: linear-gradient(120deg, #f6d365 0%, #fda085 25%, #a1c4fd 50%, #c2e9fb 75%, #d4fc79 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 12s linear infinite;
+      z-index: -3;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* soft floating blobs */
+    .blob {
+      position: absolute;
+      filter: blur(36px) saturate(120%);
+      opacity: 0.7;
+      transform: translate3d(0,0,0);
+      animation: float 8s ease-in-out infinite;
+      z-index: -2;
+      pointer-events: none;
+    }
+    .blob.b1 { width: 520px; height: 520px; left: -12%; top: -8%; background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.45), rgba(255,255,255,0) 40%), #ff9a9e; animation-duration: 10s; }
+    .blob.b2 { width: 420px; height: 420px; right: -8%; top: 10%; background: radial-gradient(circle at 80% 80%, rgba(255,255,255,0.35), rgba(255,255,255,0) 40%), #a1c4fd; animation-duration: 12s; animation-delay: 1.5s; }
+    .blob.b3 { width: 360px; height: 360px; left: 10%; bottom: -12%; background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.35), rgba(255,255,255,0) 40%), #c2e9fb; animation-duration: 14s; animation-delay: 0.6s; }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg) scale(1); }
+      50% { transform: translateY(-22px) rotate(6deg) scale(1.02); }
+      100% { transform: translateY(0) rotate(0deg) scale(1); }
+    }
+
+    /* subtle paper grain overlay */
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background-image:
+        radial-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);
+      background-size: 3px 3px;
+      mix-blend-mode: overlay;
+      opacity: 0.6;
+    }
+
+    /* content container */
+    .wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 48px 48px;
+      gap: 16px;
+    }
+
+    .card {
+      max-width: 420px;
+      padding: 28px;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(8px) saturate(1.05);
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(12,20,30,0.12);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    h1 {
+      font-size: 40px;
+      line-height: 1;
+      margin-bottom: 12px;
+      color: #4b3f6b;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    p.count {
+      font-weight: 600;
+      color: #6b5566;
+      margin-bottom: 18px;
+    }
+
+    .controls { display: flex; gap: 10px; align-items: center; }
+
+    button {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 3px 8px rgba(12,20,30,0.06);
+    }
+    button:hover { transform: translateY(-2px); transition: .15s transform ease; }
+
+    /* like button special color when active */
+    button.like.active {
+      background: linear-gradient(180deg,#ff7eb3,#ff758c);
+      border: none;
+      color: white;
+      box-shadow: 0 8px 30px rgba(255,92,140,0.18);
+    }
+
+    /* responsive */
+    @media (max-width:640px) {
+      .wrap { padding: 24px; justify-content: center; align-items: center; }
+      .card { width: 100%; max-width: 360px; }
+      h1 { font-size: 34px; text-align: center; }
+      .controls { justify-content: center; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- background layers -->
+  <div class="bg"></div>
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+  <div class="blob b3" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- content -->
+  <main class="wrap">
+    <section class="card" aria-labelledby="likesTitle">
+      <h1 id="likesTitle"><span id="count">0</span> like</h1>
+      <p class="count" id="sub">Be the first to like this.</p>
+
+      <div class="controls">
+        <button id="btnLike" class="like">like</button>
+        <button id="btnUnlike">unlike</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // simple like/unlike logic (keeps it client-side)
+    const btnLike = document.getElementById('btnLike');
+    const btnUnlike = document.getElementById('btnUnlike');
+    const countEl = document.getElementById('count');
+    const subEl = document.getElementById('sub');
+
+    let count = 0;
+    let liked = false;
+
+    function updateUI() {
+      countEl.textContent = count;
+      document.getElementById('likesTitle').textContent = count + (count === 1 ? ' like' : ' likes');
+      subEl.textContent = (count === 0) ? 'Be the first to like this.' : (count === 1 ? '1 person liked this.' : count + ' people liked this.');
+      btnLike.classList.toggle('active', liked);
+    }
+
+    btnLike.addEventListener('click', () => {
+      if (!liked) { count += 1; liked = true; }
+      else { count -= 1; liked = false; }
+      updateUI();
+    });
+
+    btnUnlike.addEventListener('click', () => {
+      if (count > 0) {
+        count = Math.max(0, count - 1);
+        if (liked && count === 0) liked = false;
+        updateUI();
+      }
+    });
+
+    updateUI();
+  </script>
+</body>
+</html>

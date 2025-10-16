@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health & Care Centre</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: whitesmoke;
+    }
+
+    header {
+      background-color: lightseagreen;
+      color: white;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #c8f7f2;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1580281657521-5f6a54f06c1c?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content h2 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .hero-content a {
+      background-color: #00bfa5;
+      padding: 10px 25px;
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .hero-content a:hover {
+      background-color: #00897b;
+    }
+
+    .services {
+      padding: 60px 50px;
+      background-color: white;
+      text-align: center;
+    }
+
+    .services h2 {
+      font-size: 32px;
+      color: #00796b;
+      margin-bottom: 30px;
+    }
+
+    .service-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background-color: #e0f2f1;
+      border-radius: 15px;
+      padding: 30px 20px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      background-color: #b2dfdb;
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: #004d40;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #333;
+      font-size: 15px;
+    }
+
+    footer {
+      background-color: #004d40;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 50px;
+    }
+
+    footer p {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Health & Care Centre</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Doctors</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Your Health, Our Priority</h2>
+      <p>We provide compassionate healthcare for your well-being.</p>
+      <a href="#">Book Appointment</a>
+    </div>
+  </section>
+
+  <section class="services">
+    <h2>Our Services</h2>
+    <div class="service-cards">
+      <div class="card">
+        <h3>General Checkup</h3>
+        <p>Comprehensive health checkups for you and your family.</p>
+      </div>
+      <div class="card">
+        <h3>Emergency Care</h3>
+        <p>24/7 emergency services with expert medical staff.</p>
+      </div>
+      <div class="card">
+        <h3>Lab Tests</h3>
+        <p>Accurate and quick lab testing with modern equipment.</p>
+      </div>
+      <div class="card">
+        <h3>Specialist Consultation</h3>
+        <p>Meet top doctors in cardiology, pediatrics, and more.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Health & Care Centre | All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>
